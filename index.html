@@ -1,0 +1,295 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+    <link rel="stylesheet" href="css/git.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <section>
+                <h1>Git</h1>
+                <img src="git_logo.jpg" width="200px">
+            </section>
+        </section>
+        <section>
+            <h3>Vincent Galloy</h3>
+            <p><i class="fa fa-github-alt"></i> <a href="https://www.github.com/vgalloy" target="_blank">Vincent Galloy</a></p>
+        </section>
+        <section>
+            <ul>
+                <li>Why git ?</li>
+                <li class="fragment">Configuration</li>
+                <li class="fragment">Simple tree</li>
+                <li class="fragment">Basics</li>
+                <li class="fragment">Conflict resolution</li>
+                <li class="fragment">Branch management</li>
+            </ul>
+        </section>
+        <section>
+            Why git ?
+            <section></section>
+            <section>
+                <ul>
+                    <li><i class="fa fa-hourglass-half" aria-hidden="true"></i>&nbsp;Save time</li>
+                    <li class="fragment"><i class="fa fa-wifi" aria-hidden="true"></i>&nbsp;Offline</li>
+                    <li class="fragment"><i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;Distributed</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            Configuration
+            <section></section>
+            <section>
+                gitconfig
+                <pre class="fragment">
+[alias]
+    tree = log --all --graph --date=iso --format=format:'%C(yellow)%h%C(reset) - %C(magenta)%ad%x08%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) %s %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+    amend = commit -a --amend --no-edit
+    st = status
+    update = fetch -p --tags
+    up = fetch -p --tags
+[user]
+    name = Vincent Galloy
+    email = galloy.v@gmail.com
+                </pre>
+            </section>
+            <section>
+                git project template
+                <pre>
+my-project/
+    |_ .git/
+    |_ .gitignore
+    |_ README.md
+                </pre>
+            </section>
+            <section>
+                .gitignore
+                <pre>
+target/
+/.idea/
+/.gradle/
+build/
+*.iml
+                </pre>
+            </section>
+            <section>
+                Get source from url
+                <div class="fragment">
+                    <pre>git clone url [directory]</pre>
+                    <pre>git clone https://github.com/vgalloy/git-training my-folder</pre>
+                </div>
+            </section>
+        </section>
+        <section>
+            Simple tree
+
+            <pre style="font-size: 14px;">
+* <span class="sha1">ed3133d</span> - <span class="date">2017-06-26 22:31</span> [ CHG ] : Polishing - <span class="author">Vincent Galloy</span> (<span class="head">HEAD</span> -> <span class="branch">master</span>, <span class="remote">origin/master</span>)
+| * <span class="sha1">6213722</span> - <span class="date">2017-06-20 22:29</span> [ NEW ] : Java 9 branch creation - <span class="author">Vincent Galloy</span> (<span class="remote">origin/java9</span>, <span class="branch">java9</span>)
+|/
+* <span class="sha1">bda6922</span> - <span class="date">2017-06-15 20:48</span> [ CHG ] : Gradle 4.0 and log refactoring - <span class="author">Vincent Galloy</span>
+* <span class="sha1">9c6a385</span> - <span class="date">2017-06-10 12:59</span> [ CHG ] : Update pmd - <span class="author">Vincent Galloy</span>
+            </pre>
+
+            <section></section>
+            <section>
+                <div>Some explanation</div>
+
+                <ul style="font-size: 18px;">
+                    <li class="fragment"><span class="sha1">ed3133d</span> : sha1</li>
+                    <li class="fragment"><span class="date">2017-06-26 22:31</span> : date of the commit</li>
+                    <li class="fragment">[ NEW ] : Java 9 branch creation : commit message (mandatory)</li>
+                    <li class="fragment"><span class="head">HEAD</span> : current position in the tree</li>
+                    <li class="fragment"><span class="remote">origin/java9</span> : current image of the branch 'java9' on 'origin' remote</li>
+                    <li class="fragment"><span class="branch">java9</span> : branch 'java9' on local</li>
+                    <li class="fragment"><span class="author">Vincent Galloy</span> : author name (mandatory)</li>
+                </ul>
+            </section>
+
+
+            <section>
+                checkout
+                <div class="fragment">
+                    <pre>git checkout [sha]</pre>
+                    <pre>git checkout 6213722</pre>
+                </div>
+
+                <pre style="font-size: 14px;" class="fragment">
+* <span class="sha1">ed3133d</span> - <span class="date">2017-06-26 22:31</span> [ CHG ] : Polishing - <span class="author">Vincent Galloy</span> (<span class="branch">master</span>, <span class="remote">origin/master</span>)
+| * <span class="sha1">6213722</span> - <span class="date">2017-06-20 22:29</span> [ NEW ] : Java 9 branch creation - <span class="author">Vincent Galloy</span> (<span class="head">HEAD</span>, <span class="remote">origin/java9</span>, <span class="branch">java9</span>)
+|/
+* <span class="sha1">bda6922</span> - <span class="date">2017-06-15 20:48</span> [ CHG ] : Gradle 4.0 and log refactoring - <span class="author">Vincent Galloy</span>
+* <span class="sha1">9c6a385</span> - <span class="date">2017-06-10 12:59</span> [ CHG ] : Update pmd - <span class="author">Vincent Galloy</span>
+                </pre>
+            </section>
+
+
+            <section>
+                sha1
+
+                <pre>git checkout bda6922</pre>
+                <pre class="fragment">git checkout bda6922f5019e15f664f7c474d3c31631b8654b1</pre>
+                <pre class="fragment">git checkout master~1</pre>
+                <pre class="fragment">git checkout ed3133d~1</pre>
+                <pre class="fragment">git checkout HEAD~1</pre>
+                <pre class="fragment">git checkout origin/java9~1</pre>
+            </section>
+        </section>
+        <section>
+            Basics
+            <section></section>
+            <section>
+                add
+                <pre>git add [fileName]</pre>
+                <pre>git add git_log.jpg</pre>
+                <pre>git add -A .</pre>
+
+                <div class="fragment">
+                    status
+                    <pre class="git">
+$ git status
+    <span class="branch">new file:   git_logo.jpg</span>
+                </pre>
+                </div>
+            </section>
+
+            <section>
+                commit
+                <pre style="font-size: 14px;">
+* <span class="sha1">ed3133d</span> - <span class="date">2017-06-26 22:31</span> [ CHG ] : Polishing - <span class="author">Vincent Galloy</span> (<span class="head">HEAD</span> -> <span class="branch">master</span>, <span class="remote">origin/master</span>)
+* <span class="sha1">bda6922</span> - <span class="date">2017-06-15 20:48</span> [ CHG ] : Gradle 4.0 and log refactoring - <span class="author">Vincent Galloy</span>
+* <span class="sha1">9c6a385</span> - <span class="date">2017-06-10 12:59</span> [ CHG ] : Update pmd - <span class="author">Vincent Galloy</span>
+                </pre>
+
+                <pre class="fragment">$ git commit -m "My great message"</pre>
+                <pre class="fragment" style="font-size: 14px;">
+* <span class="sha1">8b311d9</span> - <span class="date">2017-06-28 22:51</span> My Great commit - <span class="author">Vincent Galloy</span> (<span class="head">HEAD</span> -> <span class="branch">master</span>)
+* <span class="sha1">ed3133d</span> - <span class="date">2017-06-26 22:31</span> [ CHG ] : Polishing - <span class="author">Vincent Galloy</span> (<span class="remote">origin/master</span>)
+* <span class="sha1">bda6922</span> - <span class="date">2017-06-15 20:48</span> [ CHG ] : Gradle 4.0 and log refactoring - <span class="author">Vincent Galloy</span>
+* <span class="sha1">9c6a385</span> - <span class="date">2017-06-10 12:59</span> [ CHG ] : Update pmd - <span class="author">Vincent Galloy</span>
+                </pre>
+            </section>
+            <section>
+                push
+                <pre style="font-size: 14px;">
+* <span class="sha1">8b311d9</span> - <span class="date">2017-06-28 22:51</span> My Great commit - <span class="author">Vincent Galloy</span> (<span class="head">HEAD</span> -> <span class="branch">master</span>)
+* <span class="sha1">ed3133d</span> - <span class="date">2017-06-26 22:31</span> [ CHG ] : Polishing - <span class="author">Vincent Galloy</span> (<span class="remote">origin/master</span>)
+* <span class="sha1">bda6922</span> - <span class="date">2017-06-15 20:48</span> [ CHG ] : Gradle 4.0 and log refactoring - <span class="author">Vincent Galloy</span>
+* <span class="sha1">9c6a385</span> - <span class="date">2017-06-10 12:59</span> [ CHG ] : Update pmd - <span class="author">Vincent Galloy</span>
+                </pre>
+                <pre class="fragment">git push [remote] [local-sha1]:[remoteName]</pre>
+                <pre class="fragment">git push origin master:master</pre>
+                <pre class="fragment">git push origin master</pre>
+                <pre class="fragment" style="font-size: 14px;">
+* <span class="sha1">8b311d9</span> - <span class="date">2017-06-28 22:51</span> My Great commit - <span class="author">Vincent Galloy</span> (<span class="head">HEAD</span> -> <span class="branch">master</span>, <span class="remote">origin/master</span>)
+* <span class="sha1">ed3133d</span> - <span class="date">2017-06-26 22:31</span> [ CHG ] : Polishing - <span class="author">Vincent Galloy</span>
+* <span class="sha1">bda6922</span> - <span class="date">2017-06-15 20:48</span> [ CHG ] : Gradle 4.0 and log refactoring - <span class="author">Vincent Galloy</span>
+* <span class="sha1">9c6a385</span> - <span class="date">2017-06-10 12:59</span> [ CHG ] : Update pmd - <span class="author">Vincent Galloy</span>
+                </pre>
+            </section>
+        </section>
+        <section>
+            Conflict resolution
+            <section></section>
+            <section>
+                fetch
+                <pre style="font-size: 14px;">
+* <span class="sha1">ed3133d</span> - <span class="date">2017-06-26 22:31</span> [ CHG ] : Polishing - <span class="author">Vincent Galloy</span> (<span class="head">HEAD</span> -> <span class="branch">master</span>)
+* <span class="sha1">bda6922</span> - <span class="date">2017-06-15 20:48</span> [ CHG ] : Gradle 4.0 and log refactoring - <span class="author">Vincent Galloy</span> (<span class="remote">origin/master</span>)
+* <span class="sha1">9c6a385</span> - <span class="date">2017-06-10 12:59</span> [ CHG ] : Update pmd - <span class="author">Vincent Galloy</span>
+                </pre>
+                <pre class="fragment">git push origin master</pre>
+                <pre class="fragment"> ! [rejected]        master -> master (non-fast-forward)</pre>
+
+                <pre class="fragment">git fetch [remote]</pre>
+                <pre class="fragment">git fetch origin</pre>
+                <pre class="fragment">git fetch</pre>
+                <pre class="fragment" style="font-size: 14px;">
+* <span class="sha1">8b311d9</span> - <span class="date">2017-06-28 22:51</span> My Great commit - <span class="author">Vincent Galloy</span> (<span class="remote">origin/master</span>)
+| * <span class="sha1">ed3133d</span> - <span class="date">2017-06-26 22:31</span> [ CHG ] : Polishing - <span class="author">Vincent Galloy</span> (<span class="head">HEAD</span> -> <span class="branch">master</span>)
+|/
+* <span class="sha1">bda6922</span> - <span class="date">2017-06-15 20:48</span> [ CHG ] : Gradle 4.0 and log refactoring - <span class="author">Vincent Galloy</span>
+* <span class="sha1">9c6a385</span> - <span class="date">2017-06-10 12:59</span> [ CHG ] : Update pmd - <span class="author">Vincent Galloy</span>
+                </pre>
+            </section>
+            <section>
+                rebase
+                 <pre style="font-size: 14px;">
+* <span class="sha1">8b311d9</span> - <span class="date">2017-06-28 22:51</span> My Great commit - <span class="author">Vincent Galloy</span> (<span class="remote">origin/master</span>)
+| * <span class="sha1">ed3133d</span> - <span class="date">2017-06-26 22:31</span> [ CHG ] : Polishing - <span class="author">Vincent Galloy</span> (<span class="head">HEAD</span> -> <span class="branch">master</span>)
+|/
+* <span class="sha1">bda6922</span> - <span class="date">2017-06-15 20:48</span> [ CHG ] : Gradle 4.0 and log refactoring - <span class="author">Vincent Galloy</span>
+* <span class="sha1">9c6a385</span> - <span class="date">2017-06-10 12:59</span> [ CHG ] : Update pmd - <span class="author">Vincent Galloy</span>
+                </pre>
+                <pre class="fragment">git rebase</pre>
+                <pre class="fragment" style="font-size: 14px;">
+* <span class="sha1">fk8985i</span> - <span class="date">2017-06-26 22:31</span> [ CHG ] : Polishing - <span class="author">Vincent Galloy</span> (<span class="head">HEAD</span> -> <span class="branch">master</span>)
+* <span class="sha1">8b311d9</span> - <span class="date">2017-06-28 22:51</span> My Great commit - <span class="author">Vincent Galloy</span> (<span class="remote">origin/master</span>)
+* <span class="sha1">bda6922</span> - <span class="date">2017-06-15 20:48</span> [ CHG ] : Gradle 4.0 and log refactoring - <span class="author">Vincent Galloy</span>
+* <span class="sha1">9c6a385</span> - <span class="date">2017-06-10 12:59</span> [ CHG ] : Update pmd - <span class="author">Vincent Galloy</span>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            Branch management
+            <section>
+                <ul>
+                    <li class="fragment">rebase</li>
+                    <li class="fragment">rebase --interactive</li>
+                    <li class="fragment">cherry-pick</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            Ref
+            <a href="https://www.git-tower.com/learn/git/ebook/en/command-line/appendix/why-git" target="_blank">git-tower.com</a>
+            <a href="https://svnvsgit.com/" target="_blank">svnvsgit.com/</a>
+        </section>
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

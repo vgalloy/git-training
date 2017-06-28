@@ -1,0 +1,23 @@
+.sha1 {
+    color: #a5a03c;
+}
+
+.date {
+    color: #7639a5;
+}
+
+.head {
+    color: #00bede;
+}
+
+.remote {
+    color: #de0004;
+}
+
+.branch {
+    color: #0fde2a;
+}
+
+.author {
+    color: #9d9d9d;
+}
