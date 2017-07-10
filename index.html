@@ -29,7 +29,7 @@
         <section>
             <section>
                 <h1>Git</h1>
-                <img src="git_logo.jpg" width="200px">
+                <img src="img/git_logo.jpg" width="200px">
             </section>
         </section>
         <section>
@@ -41,9 +41,9 @@
                 <li>Why git ?</li>
                 <li class="fragment">Configuration</li>
                 <li class="fragment">Simple tree</li>
-                <li class="fragment">Basics</li>
+                <li class="fragment">Working alone</li>
                 <li class="fragment">Conflict resolution</li>
-                <li class="fragment">Branch management</li>
+                <li class="fragment">Branch management (wip)</li>
             </ul>
         </section>
         <section>
@@ -72,6 +72,8 @@
 [user]
     name = Vincent Galloy
     email = galloy.v@gmail.com
+[core]
+    filemode = false
                 </pre>
             </section>
             <section>
@@ -127,6 +129,21 @@ build/
                 </ul>
             </section>
 
+            <section>
+                sha1
+
+                <pre>git checkout bda6922</pre>
+                <pre class="fragment">git checkout bda6922f5019e15f664f7c474d3c31631b8654b1</pre>
+                <pre class="fragment">git checkout master~1</pre>
+                <pre class="fragment">git checkout ed3133d~1</pre>
+                <pre class="fragment">git checkout HEAD~1</pre>
+                <pre class="fragment">git checkout origin/java9~1</pre>
+            </section>
+
+            <section>
+                status
+                <pre>git status</pre>
+            </section>
 
             <section>
                 checkout
@@ -144,20 +161,9 @@ build/
                 </pre>
             </section>
 
-
-            <section>
-                sha1
-
-                <pre>git checkout bda6922</pre>
-                <pre class="fragment">git checkout bda6922f5019e15f664f7c474d3c31631b8654b1</pre>
-                <pre class="fragment">git checkout master~1</pre>
-                <pre class="fragment">git checkout ed3133d~1</pre>
-                <pre class="fragment">git checkout HEAD~1</pre>
-                <pre class="fragment">git checkout origin/java9~1</pre>
-            </section>
         </section>
         <section>
-            Basics
+            Working alone
             <section></section>
             <section>
                 add
@@ -260,6 +266,14 @@ $ git status
                     <li class="fragment">rebase --interactive</li>
                     <li class="fragment">cherry-pick</li>
                 </ul>
+            </section>
+            <section>
+                rebase
+                <img src="img/git_rebase.jpg" width="200px">
+            </section>
+            <section>
+                cherry-pick
+                <img src="img/git_cherry_pick.jpg.jpg" width="200px">
             </section>
         </section>
 
