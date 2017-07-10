@@ -37,14 +37,18 @@
             <p><i class="fa fa-github-alt"></i> <a href="https://www.github.com/vgalloy" target="_blank">Vincent Galloy</a></p>
         </section>
         <section>
-            <ul>
-                <li>Why git ?</li>
-                <li class="fragment">Configuration</li>
-                <li class="fragment">Simple tree</li>
-                <li class="fragment">Working alone</li>
-                <li class="fragment">Conflict resolution</li>
-                <li class="fragment">Branch management (wip)</li>
-            </ul>
+            <h1>Summary</h1>
+            <section></section>
+            <section>
+                <ul>
+                    <li>Why git ?</li>
+                    <li class="fragment">Configuration</li>
+                    <li class="fragment">Simple tree</li>
+                    <li class="fragment">Working alone</li>
+                    <li class="fragment">Conflict resolution</li>
+                    <li class="fragment">Branch management (wip)</li>
+                </ul>
+            </section>
         </section>
         <section>
             Why git ?
@@ -143,6 +147,27 @@ build/
             <section>
                 status
                 <pre>git status</pre>
+                <pre style="font-size: 14px;">
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD &ltfile&gt..." to unstage)
+
+        <span class="branch">new file:   img/git_cherry_pick.png</span>
+
+Changes not staged for commit:
+  (use "git add &ltfile&gt..." to update what will be committed)
+  (use "git checkout -- &ltfile&gt..." to discard changes in working directory)
+
+        <span class="remote">modified:   index.html</span>
+
+Untracked files:
+  (use "git add &ltfile&gt..." to include in what will be committed)
+
+        <span class="remote">img/git_rebase.png</span>
+        <span class="remote">img/git_rebase_i.jpg</span>
+        <span class="remote">img/git_rebase_i.png</span>
+</pre>
             </section>
 
             <section>
@@ -263,17 +288,21 @@ $ git status
             <section>
                 <ul>
                     <li class="fragment">rebase</li>
-                    <li class="fragment">rebase --interactive</li>
                     <li class="fragment">cherry-pick</li>
+                    <li class="fragment">rebase --interactive</li>
                 </ul>
             </section>
             <section>
                 rebase
-                <img src="img/git_rebase.jpg" width="200px">
+                <img src="img/git_rebase.png" width="200px">
             </section>
             <section>
                 cherry-pick
-                <img src="img/git_cherry_pick.jpg.jpg" width="200px">
+                <img src="img/git_cherry_pick.png" width="200px">
+            </section>
+            <section>
+                rebase --interactive
+                <img src="img/git_rebase_i.png.png" width="200px">
             </section>
         </section>
 
